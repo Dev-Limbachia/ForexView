@@ -1,0 +1,22 @@
+{
+  "name": "data_visualization_website",
+  "version": "1.0.0",
+  "description": "This is a Data Visualization Website using AWS Services.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dev Limbachia",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.30"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.538.0",
+    "@aws-sdk/lib-dynamodb": "^3.538.0",
+    "aws-sdk": "^2.1582.0",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
+    "newsapi": "^2.4.1"
+  }
+}
