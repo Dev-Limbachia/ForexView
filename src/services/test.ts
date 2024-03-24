@@ -17,8 +17,8 @@ interface NewsAPIResult {
     articles: Array<Article>;
 }
 
-// Function to download data from API
-export async function downloadNewsData(): Promise<Article[]> {
+// Pulls and logs data from API
+async function getNews(): Promise<void> {
     // Create new NewsAPI class
     const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
 
@@ -40,5 +40,15 @@ export async function downloadNewsData(): Promise<Article[]> {
         );
     });
 
-    return eurUsdArticles;
+    // Output title and publishedAt for filtered articles with UNIX time format
+    console.log(`Number of articles related to EUR/USD: ${eurUsdArticles.length}\n`);
+    for (let article of eurUsdArticles) {
+        const unixTime = new Date(article.publishedAt).getTime();
+        console.log(`Title: ${article.title}`);
+        console.log(`Description: ${article.description}`);
+        console.log(`Published At (UNIX time): ${unixTime}`);
+        console.log(); // Add a line break for readability
+    }
 }
+
+getNews();

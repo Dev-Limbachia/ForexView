@@ -1,5 +1,5 @@
 // Importing downloadForexData function from downloadForexData.ts
-const downloadForexData = require('./downloadForexData').downloadForexData; 
+const downloadForexData = require('./downloadForexData').downloadForexData;
 
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
@@ -27,7 +27,7 @@ export async function uploadForexData(): Promise<void> {
                 "currency_pair": currencyPair,
                 "exchange_rate": rate
             }
-        });        
+        });
 
         try {
             const response = await documentClient.send(command);
