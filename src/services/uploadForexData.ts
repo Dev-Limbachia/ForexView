@@ -1,8 +1,9 @@
-// Importing downloadForexData function from downloadForexData.ts
-const downloadForexData = require('./downloadForexData').downloadForexData;
-
+// Importing AWS SDK components
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
+
+// Importing downloadForexData function from downloadForexData.ts
+const downloadForexData = require('./downloadForexData').downloadForexData;
 
 const client = new DynamoDBClient({});
 const documentClient = DynamoDBDocumentClient.from(client);
