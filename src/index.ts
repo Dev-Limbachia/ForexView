@@ -1,4 +1,4 @@
-// const { uploadForexData } = require('./services/UploadForexData');
+const { uploadForexData } = require('./services/UploadForexData');
 const { uploadNewsData } = require('./services/uploadNewsData');
 
 async function run() {
