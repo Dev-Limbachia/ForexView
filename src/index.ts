@@ -3,7 +3,7 @@ const { uploadNewsData } = require('./services/uploadNewsData');
 
 async function run() {
     // await uploadForexData();
-    // await uploadNewsData();
+     await uploadNewsData();
 
 }
 

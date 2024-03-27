@@ -25,7 +25,7 @@ export async function downloadNewsData(): Promise<Article[]> {
     // Search API with the specified query parameters
     const result: NewsAPIResult = await newsapi.v2.everything({
         q: 'dailyfx',
-        from: '2024-02-24',
+        from: '2024-02-27',
         sortBy: 'publishedAt',
         pageSize: 100,
         language: 'en'
