@@ -23,8 +23,6 @@ class Download {
             console.error(`Error uploading data to DynamoDB table ${tableName}:`, error);
         }
     }
-
-    // You can add other methods for downloading data here
 }
 
 export default Download;
