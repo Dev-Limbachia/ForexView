@@ -7,7 +7,7 @@ require('dotenv').config();
 // Define structure of article returned from NewsAPI
 interface Article {
     title: string;
-    publishedAt: string;
+    publishedAt: number;
     description: string;
     content: string;
 }
@@ -25,7 +25,7 @@ export async function downloadNewsData(): Promise<Article[]> {
     // Search API with the specified query parameters
     const result: NewsAPIResult = await newsapi.v2.everything({
         q: 'dailyfx',
-        from: '2024-02-27',
+        from: '2024-02-28',
         sortBy: 'publishedAt',
         pageSize: 100,
         language: 'en'
