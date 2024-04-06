@@ -2,12 +2,13 @@ const axios = require('axios');
 
 require('dotenv').config();
 
-interface AlphaVantageForex {
-    [key: string]: {
-        [key: string]: {
-            [key: string]: number
-        }
-    }
+export interface AlphaVantageForex {
+    [timestamp: number]: {
+        "1. open": number;
+        "2. high": number;
+        "3. low": number;
+        "4. close": number;
+    };
 }
 
 export async function downloadForexData(fromCurrency: string, toCurrency: string): Promise<AlphaVantageForex> {
