@@ -25,7 +25,7 @@ export async function downloadNewsData(): Promise<Article[]> {
     // Search API with the specified query parameters
     const result: NewsAPIResult = await newsapi.v2.everything({
         q: 'dailyfx',
-        from: '2024-02-29',
+        from: '2024-03-11',
         sortBy: 'publishedAt',
         pageSize: 100,
         language: 'en'
@@ -34,9 +34,9 @@ export async function downloadNewsData(): Promise<Article[]> {
     // Filter articles containing "EUR/USD" in the title, description, or content
     const eurUsdArticles = result.articles.filter(article => {
         return (
-            article.title.includes('EUR/USD') ||
-            article.description.includes('EUR/USD') ||
-            article.content.includes('EUR/USD')
+            article.title.includes('USD/CAD') ||
+            article.description.includes('USD/CAD') ||
+            article.content.includes('USD/CAD')
         );
     });
 

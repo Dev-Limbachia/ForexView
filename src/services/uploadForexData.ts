@@ -4,8 +4,8 @@ import { downloadForexData, AlphaVantageForex } from './downloadForexData';
 export async function uploadForexData(): Promise<void> {
     try {
         const downloader = new Download();
-        const fromCurrency = "EUR";
-        const toCurrency = "USD";
+        const fromCurrency = "USD";
+        const toCurrency = "JPY";
 
         // Download forex data
         const data: AlphaVantageForex = await downloadForexData(fromCurrency, toCurrency);
@@ -19,7 +19,7 @@ export async function uploadForexData(): Promise<void> {
 
             // Iterate through each date in the forexData
             for (const date in forexData) {
-                if (count >= 10) break; // Exit loop after processing 10 data points
+                if (count >= 5000) break; // Exit loop after processing 10 data points
                 
                 const values = forexData[date];
                 const timestamp = new Date(date).getTime(); // Convert timestamp to milliseconds 
@@ -32,7 +32,7 @@ export async function uploadForexData(): Promise<void> {
                 const close = values['4. close'];
 
                 // Upload data to DynamoDB
-                await downloader.saveToDynamoDB("ForexDataTest", {
+                await downloader.saveToDynamoDB("ForexData", {
                     "timestamp": timestamp,
                     "currency_pair": currencyPair,
                     "open": open,
