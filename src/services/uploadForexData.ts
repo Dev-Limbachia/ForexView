@@ -4,8 +4,8 @@ import { downloadForexData, AlphaVantageForex } from './downloadForexData';
 export async function uploadForexData(): Promise<void> {
     try {
         const downloader = new Download();
-        const fromCurrency = "USD";
-        const toCurrency = "JPY";
+        const fromCurrency = "EUR";
+        const toCurrency = "USD";
 
         // Download forex data
         const data: AlphaVantageForex = await downloadForexData(fromCurrency, toCurrency);
