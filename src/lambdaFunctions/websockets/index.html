@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Client</title>
+</head>
+<body>
+<h1>WebSocket Data Retrieval</h1>
+
+<div>
+    <button onclick="getData('EUR-USD')">Get EUR/USD Data</button>
+    <button onclick="getData('USD-JPY')">Get USD/JPY Data</button>
+    <button onclick="getData('GBP-USD')">Get GBP/USD Data</button>
+    <button onclick="getData('AUD-USD')">Get AUD/USD Data</button>
+    <button onclick="getData('USD-CHF')">Get USD/CHF Data</button>
+</div>
+
+<h2>Messages from Server</h2>
+<ul id="messages"></ul>
+
+<script>
+    let connection = new WebSocket("wss://2xcsvlahya.execute-api.us-east-1.amazonaws.com/production/");
+
+    connection.onopen = function(event) {
+        console.log("WebSocket connection established.");
+    };
+
+    connection.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        console.log("Message received:", data);
+
+        // Display the data in the messages list
+        const messagesList = document.getElementById("messages");
+        messagesList.innerHTML = ""; // Clear previous messages
+
+        data.forEach(item => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Currency Pair: ${item.currency_pair}, Open: ${item.open}, High: ${item.high}, Low: ${item.low}, Close: ${item.close}`;
+            messagesList.appendChild(listItem);
+        });
+    };
+
+    connection.onerror = function(error) {
+        console.error("WebSocket Error:", error);
+    };
+
+    function getData(currencyPair) {
+        const message = {
+            action: "getData",
+            queryStringParameters: {
+                currency_pair: currencyPair
+            }
+        };
+        connection.send(JSON.stringify(message));
+    }
+</script>
+</body>
+</html>
