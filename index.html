@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Client</title>
+</head>
+<body>
+    <div id="currencySelection">
+        <button onclick="selectCurrency('EUR-USD')">EUR-USD</button>
+        <button onclick="selectCurrency('USD-JPY')">USD-JPY</button>
+        <button onclick="selectCurrency('GBP-USD')">GBP-USD</button>
+        <button onclick="selectCurrency('AUD-USD')">AUD-USD</button>
+        <button onclick="selectCurrency('USD-CHF')">USD-CHF</button>
+    </div>
+
+    <div id="forexDataContainer"></div>
+
+    <script>
+        
+         // Check if the page is being loaded for the first time
+         if (!localStorage.getItem('firstLoad')) {
+            localStorage.setItem('firstLoad', 'true');
+            // Reload the window after a short delay (e.g., 100ms)
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
+        }
+        const socket = new WebSocket('ws://localhost:8080'); // WebSocket server URL
+
+        socket.onopen = () => {
+            console.log('WebSocket connected');
+            // Select default currency pair (EUR-USD) on connection
+            selectCurrency('EUR-USD');
+        };
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log('Received data:', data);
+
+            displayForexData(data);
+        };
+
+        socket.onclose = () => {
+            console.log('WebSocket disconnected');
+        };
+
+        function selectCurrency(currencyPair) {
+            // Send selected currency pair to server via WebSocket
+            socket.send(currencyPair);
+        }
+
+        function displayForexData(data) {
+            const forexDataContainer = document.getElementById('forexDataContainer');
+            forexDataContainer.innerHTML = ''; // Clear previous content
+
+            if (Array.isArray(data)) {
+                // If data is an array (multiple items), display each item
+                data.forEach((forexData) => {
+                    displaySingleForexData(forexData, forexDataContainer);
+                });
+            } else if (typeof data === 'object') {
+                // If data is a single object, display it
+                displaySingleForexData(data, forexDataContainer);
+            } else {
+                console.error('Invalid data received:', data);
+            }
+        }
+
+        function displaySingleForexData(forexData, container) {
+            const forexDataDiv = document.createElement('div');
+            forexDataDiv.classList.add('forex-data');
+
+            // Format timestamp as a readable date
+            const timestamp = new Date(forexData.timestamp);
+
+            forexDataDiv.innerHTML = `
+                <p><strong>Currency Pair:</strong> ${forexData.currency_pair}</p>
+                <p><strong>Timestamp:</strong> ${timestamp.toLocaleString()}</p>
+                <p><strong>Close:</strong> ${forexData.close}</p>
+                <p><strong>High:</strong> ${forexData.high}</p>
+                <p><strong>Low:</strong> ${forexData.low}</p>
+                <p><strong>Open:</strong> ${forexData.open}</p>
+                <hr>
+            `;
+
+            // Append the forexDataDiv to the specified container
+            container.appendChild(forexDataDiv);
+        }
+    </script>
+</body>
+</html>
