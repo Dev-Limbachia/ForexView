@@ -2,7 +2,7 @@ const WebSocket = require('ws');
 const { DynamoDBClient, QueryCommand } = require('@aws-sdk/client-dynamodb');
 
 const REGION = 'us-east-1'; // Replace with your AWS region
-const TableName = 'ForexData'; // Replace with your DynamoDB table name
+const TableName = 'ForexDataTest'; // Replace with your DynamoDB table name
 
 const dynamodbClient = new DynamoDBClient({ region: REGION });
 

@@ -32,7 +32,7 @@ export async function uploadForexData(): Promise<void> {
                 const close = values['4. close'];
 
                 // Upload data to DynamoDB
-                await downloader.saveToDynamoDB("ForexData", {
+                await downloader.saveToDynamoDB("ForexDataTest", {
                     "timestamp": timestamp,
                     "currency_pair": currencyPair,
                     "open": open,
