@@ -16,7 +16,7 @@ export async function uploadNewsData(): Promise<void> {
             // Define the DynamoDB PutCommand to insert the article data
             await downloader.saveToDynamoDB("ForexNews", { // Use the saveToDynamoDB method of the downloader
                 "time_published": timestamp, // time_published is stored as a Number
-                "currency_pair": 'USD/CAD', // Hardcoded currency pair as 'EUR/USD'
+                "currency_pair": 'USD-CHF', // Hardcoded currency pair as 'EUR-USD'
                 "title": article.title, // Store the title
                 "description": article.description // Store the description
             });
